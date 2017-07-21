@@ -1,0 +1,48 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+    <a-scene>
+        <a-assets>
+            <a-asset-item id="guyobj" src="images/office-guy.obj"></a-asset-item>
+            <a-asset-item id="guymtl" src="images/office-guy.mtl"></a-asset-item>
+            <a-asset-item id="spoonobj" src="images/spoon.obj"></a-asset-item>
+            <a-asset-item id="spoonmtl" src="images/spoon.mtl"></a-asset-item>
+            <img id="background" src="images/background.jpg">
+        </a-assets>
+        <a-entity>
+            <a-camera>
+                <a-cursor></a-cursor>
+            </a-camera>
+            
+        </a-entity>
+        <a-entity id="scene1" visible="false">
+            <a-sky color="purple"></a-sky>
+            <a-box color="pink" depth="2" height="2" width="2" position="0 0 -10" onclick="nextscene()"></a-box>
+            <a-text position="0 5 -10" align="center" width="30" height="20" value="Steve the random office guy has lost all of his lucky items that are essential for his business. Can you help him find everything? Once ready click on the 'click me' button."></a-text>
+            <a-text position="-.7 .2 -8" value="click me." color="black" width="8" height="8"></a-text>
+
+        </a-entity>
+
+
+        <a-entity id="scene2" visible="true">
+            
+            <a-entity id="guy" scale="35 35 35" obj-model="obj:#guyobj; mtl:#guymtl" position="0 -4000 -3000"></a-entity>
+            <a-entity id="spoon" position="-431 -252 -165" scale="20 20 20" position="" obj-model="obj:#spoonobj; mtl:#spoonmtl" onclick="spoon()" visible="true"></a-entity>
+            <a-sky material="src: #background"></a-sky>
+        </a-entity>
+
+    </a-scene>
+
+
+</body>
+
+</html>
+

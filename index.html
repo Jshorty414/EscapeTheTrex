@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Escape The Trex</title>
+    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="script.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
+
+</head>
+
+<body>
+    <a-scene>
+        <a-assets>
+            <img id="floor" src="images/floor.JPG">
+            <img id="grey" src="images/grey.JPG">
+            <img id="wood-ceiling" src="images/wood-ceiling.jpg">
+            <img id="painting" src="images/painting.JPG">
+            <img id="door" src="images/door.JPG">
+            <img id="key" src="images/key.png">
+            <img id="bigwindow" src="images/bigwindow.JPG">
+            <img id="leftwindow" src="images/leftwindow.JPG">
+            <img id="rightwindow" src="images/rightwindow.JPG">
+            <img id="rightwindow2" src="images/screen.JPG">
+            <img id="screen" src="images/windowright2.JPG">
+            <img id="exit" src="images/exit.jpg">
+            <img id="board" src="images/board.JPG">
+            <img id="pole" src="images/pole-img.jpg">
+            <img id="opendoor" src="images/opendoor.JPG">
+            <img id="on" src="images/on.JPG">
+            <img id="off" src="images/off.JPG">
+            <img id="lap-screen" src="images/iMacScreen.png">
+            <img id="eightpic" src="images/eight.PNG">
+            <img id="sevenpic" src="images/seven.PNG">
+            <img id="threepic" src="images/three.PNG">
+            <img id="ninepic" src="images/nine.PNG">
+
+            <a-asset-item id="tablestandObj" src="images/tablestand.obj"></a-asset-item>
+            <a-asset-item id="tablestandMtl" src="images/tablestand.mtl"></a-asset-item>
+            <a-asset-item id="chairmtl" src="images/chair.mtl"></a-asset-item>
+            <a-asset-item id="chairobj" src="images/chair.obj"></a-asset-item>
+            <a-asset-item id="laptopmtl" src="images/laptop.mtl"></a-asset-item>
+            <a-asset-item id="laptopobj" src="images/laptop.obj"></a-asset-item>
+            <audio id="roar" src="images/roar.mp3" preload="auto"></audio>
+
+        </a-assets>
+        <a-entity position="-25.018 2.106 28.03" id="camera">
+            <a-camera>
+                <a-cursor color="white"></a-cursor>
+            </a-camera>
+        </a-entity>
+
+        <a-entity id="intro" visible="true">
+            <a-camera position="0 0 0"></a-camera>
+            <a-sky color="black"></a-sky>
+            <a-box id="box" color="green" depth="1" height="2" width="4" position="-25 -1 20" onclick="changeScene()">
+                <a-animation attribute="sound" to="{src: url(images/roar.mp3); autoplay: true;}" begin="click"></a-animation>
+            </a-box>
+            <a-text value="You wake up and the room is empty. You must've fallen asleep in the middle of class and everyone left you! When you get up and go to the door to leave, you realize that the door is locked! What will you do? Then suddenly you hear a loud, 'RAARARRR!' It’s Tina the TREX! She must be really hungry! Tina will be able to get in and eat you, in 5 minutes! In order to get out you have to go around the room (by clicking on dark grey circles) and find clues (by clicking on items around the room.) Good Luck! Press the green button when you are ready."
+                color="white" position="-25 10 -20" depth="1" height="20" width="80" align="center"></a-text>
+
+        </a-entity>
+
+        <a-entity id="room" visible="false">
+
+            <!--<a-text id="time" value="" position="-31.196 9.820 -22.827" scale="10 10 10"></a-text>-->
+            <!--walls-->
+            <a-plane id="front" color="#8cc683" height="30" width="70" position="-2.168 0 -23.538"></a-plane>
+
+            <a-plane id="left" material="src:#grey" height="30" width="80" position="-37.005 0 15.942" rotation="0 90 0"></a-plane>
+
+            <a-plane id="right" material="src:#grey" height="30" width="100" position="32.159 0 24" rotation="0 -90 0"></a-plane>
+
+            <a-plane id="bigwindow" material="src:#bigwindow" height="30" width="30" position="-36 0 26" rotation="0 90 0"></a-plane>
+
+            <a-plane id="windowleft" material="src:#rightwindow" height="20" width="10" position="-36 0 -3" rotation="0 90 0"></a-plane>
+
+            <a-plane id="windowright" material="src:#leftwindow" height="20" width="10" position="-36 0 -18" rotation="0 90 0"></a-plane>
+
+            <a-plane id="windowright2" material="src:#rightwindow2" height="20" width="10" position="25 1 -23" rotation="0 0 0"></a-plane>
+
+            <a-plane id="board" onclick="hint1()" material="src:#board" height="10" width="20" position="-24 1 -23" rotation="0 0 0"></a-plane>
+
+            <a-plane id="windowleft2" material="src:#rightwindow2" height="20" width="10" position="-7 1 -23" rotation="0 0 0"></a-plane>
+
+            <a-plane id="screen" material="src:#screen" height="20" width="20" position="9 5 -23" rotation="0 0 0"></a-plane>
+
+            <a-plane id="back" material="src:#grey" height="30" width="70" position="-2.150 0 44.604" rotation="0.458 180.000 -180.000"></a-plane>
+
+            <!--floors-->
+            <a-plane id="floor" height="35" width="35" position="15.036 -15.050 -7.244" rotation="-90 -180 0" material="src: #floor"></a-plane>
+
+            <a-plane id="floor" height="35" width="35" position="-19.820 -15.000 -6.746" rotation="-90 -180 0" material="src: #floor"></a-plane>
+
+            <a-plane id="floor" height="35" width="35" position="-19.626 -15.05 27.731" rotation="-90 0 0" material="src: #floor"></a-plane>
+
+            <a-plane id="floor" height="35" width="35" position="15.207 -15.056 27.571" rotation="-90 0 0" material="src: #floor"></a-plane>
+
+            <a-plane id="ceiling" height="80" width="80" position="0 14.949 15.421" rotation="90 0 0" material="src: #wood-ceiling"></a-plane>
+
+            <a-cylinder material="src:#grey" height="30" radius="17" position="0 0 52.270"></a-cylinder>
+
+            <a-plane id="key" onclick="getKey()" scale="2 2 2" material="src:#key" position="31.956 -6.032 -5.251" rotation="0 -90 0"></a-plane>
+
+            <a-plane id="paint" onclick="tiltPaint()" height="5" width="4.125" scale="3 3 3" material="src:#painting" position="31.839 0 -10.016" rotation="0 -90 0"></a-plane>
+
+            <a-plane onclick="win()" openORclose="close" id="door-right" height="25" width="10.75" material="src:#door" rotation="0 180 0" position="23.531 -2.594 44.457"></a-plane>
+
+            <a-plane id="exit" height="1.761" width="2" scale="2 2 2" material="src:#exit" rotation="0 180 0" position="23.531 12.354 44.457"></a-plane>
+
+            <a-plane id="door-left" height="25" width="10.75" material="src:#door" rotation="0 180 0" position="-26.911 -2.594 44.457"></a-plane>
+
+            <a-box id="pole1" height="30" width="2" depth="2" material="src:#pole" position="-4.280 0 7.128" scale="1.5 1.5 1.5"></a-box>
+
+            <a-box id="pole2" height="30" width="2" depth="2" material="src:#pole" position="33.278 0 7.128" scale="1.5 1.5 1.5"></a-box>
+
+            <a-plane id="light" onORoff="on" visible="true" material="src:#on" height="1" width="0.63" rotation="0 180 0" position="-18.150 0 44.462" scale="2 2 2" onclick="lightOff()"></a-plane>
+
+            <!--camera angles-->
+            <a-circle id="1" color="gray" position="-23.943 -6.754 9.059" onclick="changeCamera1()" rotation="-90 0 0"></a-circle>
+
+            <a-circle id="2" color="gray" position="-23.943 -6.754 -10.915" onclick="changeCamera2()" rotation="-90 0 0"></a-circle>
+
+            <a-circle id="3" color="gray" position="14.317 -6.754 9.059" onclick="changeCamera3()" rotation="-90 0 0"></a-circle>
+
+            <a-circle id="4" color="gray" position="14.317 -6.754 -10.915" onclick="changeCamera4()" rotation="-90 0 0"></a-circle>
+
+            <a-circle id="5" color="gray" position="-18.305 -6.754 44.307" onclick="changeCamera5()" rotation="0 -180 0"></a-circle>
+
+            <a-circle id="6" color="gray" position="32.036 -6.754 34.965" onclick="changeCamera6()" rotation="0 -90 0"></a-circle>
+
+            <a-entity id="table" width="30" scale=".1 .1 .1" obj-model="obj:#tablestandObj; mtl:#tablestandMtl" position="-23 -7 -5"></a-entity>
+
+            <a-entity id="table2" width="30" scale=".1 .1 .1" obj-model="obj:#tablestandObj; mtl:#tablestandMtl" position="-23 -7 12"></a-entity>
+
+            <a-entity id="table3" width="30" scale=".1 .1 .1" obj-model="obj:#tablestandObj; mtl:#tablestandMtl" rotation="0 90 0" position="-15 -7 17.75"></a-entity>
+
+            <a-entity id="table4" width="30" scale=".1 .1 .1" obj-model="obj:#tablestandObj; mtl:#tablestandMtl" rotation="0 90 0" position="6 -7 17.75"></a-entity>
+
+            <a-entity id="table5" width="30" scale=".1 .1 .1" obj-model="obj:#tablestandObj; mtl:#tablestandMtl" position="15 -7 -5"></a-entity>
+
+            <a-entity id="table6" width="30" scale=".1 .1 .1" obj-model="obj:#tablestandObj; mtl:#tablestandMtl" position="15 -7 12"></a-entity>
+
+            <a-entity id="table7" width="30" scale=".1 .1 .1" obj-model="obj:#tablestandObj; mtl:#tablestandMtl" rotation="0 90 0" position="-5 -7 17.75"></a-entity>
+
+            <a-entity id="chair" scale=".3 .3 .3" obj-model="obj:#chairobj; mtl:#chairmtl" rotation="0 90 0" position="-27 -15 17"></a-entity>
+
+            <a-entity id="chair" scale=".3 .3 .3" obj-model="obj:#chairobj; mtl:#chairmtl" rotation="0 90 0" position="-27 -15 10"></a-entity>
+
+            <a-entity id="chair" width="30" scale=".3 .3 .3" obj-model="obj:#chairobj; mtl:#chairmtl" rotation="0 90 0" position="-27 -15 3"></a-entity>
+
+            <a-entity id="chair" width="30" scale=".3 .3 .3" obj-model="obj:#chairobj; mtl:#chairmtl" rotation="0 90 0" position="-27 -15 -4"></a-entity>
+
+            <a-entity id="chair" width="30" scale=".3 .3 .3" obj-model="obj:#chairobj; mtl:#chairmtl" rotation="0 90 0" position="-27 -15 -11"></a-entity>
+
+            <a-entity id="chair" width="30" scale=".3 .3 .3" obj-model="obj:#chairobj; mtl:#chairmtl" rotation="0 270 0" position="20 -15 -11"></a-entity>
+
+            <a-entity id="chair" width="30" scale=".3 .3 .3" obj-model="obj:#chairobj; mtl:#chairmtl" rotation="0 270 0" position="20 -15 -4"></a-entity>
+
+            <a-entity id="chair" width="30" scale=".3 .3 .3" obj-model="obj:#chairobj; mtl:#chairmtl" rotation="0 270 0" position="20 -15 3"></a-entity>
+
+            <a-entity id="chair" width="30" scale=".3 .3 .3" obj-model="obj:#chairobj; mtl:#chairmtl" rotation="0 270 0" position="20 -15 10"></a-entity>
+
+            <a-entity id="chair" width="30" scale=".3 .3 .3" obj-model="obj:#chairobj; mtl:#chairmtl" rotation="0 270 0" position="20 -15 17"></a-entity>
+
+            <a-entity id="chair" width="30" scale=".3 .3 .3" obj-model="obj:#chairobj; mtl:#chairmtl" rotation="0 180 0" position="14 -15 22"></a-entity>
+
+            <a-entity id="chair" width="30" scale=".3 .3 .3" obj-model="obj:#chairobj; mtl:#chairmtl" rotation="0 180 0" position="7 -15 22"></a-entity>
+
+            <a-entity id="chair" width="30" scale=".3 .3 .3" obj-model="obj:#chairobj; mtl:#chairmtl" rotation="0 180 0" position="0 -15 22"></a-entity>
+
+            <a-entity id="chair" width="30" scale=".3 .3 .3" obj-model="obj:#chairobj; mtl:#chairmtl" rotation="0 180 0" position="-7 -15 22"></a-entity>
+
+            <a-entity id="chair" width="30" scale=".3 .3 .3" obj-model="obj:#chairobj; mtl:#chairmtl" rotation="0 180 0" position="-14 -15 22"></a-entity>
+
+            <a-entity id="chair" width="30" scale=".3 .3 .3" obj-model="obj:#chairobj; mtl:#chairmtl" rotation="0 180 0" position="-21 -15 22"></a-entity>
+
+            <a-entity id="laptopfull1" position="-21 -6.5 25" scale="2 2 2" rotation="0 14 0" onclick="byelaptop1()">
+                <a-entity id="laptop" obj-model="obj:#laptopobj; mtl:#laptopmtl" rotation="0 180 0"></a-entity>
+                <a-plane id="lap-screen" material="src:#lap-screen" position="0 0.513 -4.322" rotation="-30 0 0" scale="1.75 0.95 1"></a-plane>
+            </a-entity>
+
+            <a-entity id="laptopfull2" position="0 -6.5 25" scale="2 2 2" rotation="0 -14 0" onclick="byelaptop2()">
+                <a-entity id="laptop" obj-model="obj:#laptopobj; mtl:#laptopmtl" rotation="0 180 0"></a-entity>
+                <a-plane id="lap-screen" material="src:#lap-screen" position="0 0.513 -4.322" rotation="-30 0 0" scale="1.75 0.95 1"></a-plane>
+            </a-entity>
+
+            <a-entity id="laptopfull3" position="21 -6.5 -2" scale="2 2 2" rotation="0 104 0" onclick="byelaptop3()">
+                <a-entity id="laptop" obj-model="obj:#laptopobj; mtl:#laptopmtl" rotation="0 180 0"></a-entity>
+                <a-plane id="lap-screen" material="src:#lap-screen" position="0 0.513 -4.322" rotation="-30 0 0" scale="1.75 0.95 1"></a-plane>
+            </a-entity>
+
+            <a-entity id="laptopfull4" position="-30 -6.5 -2" scale="2 2 2" rotation="0 294 0" onclick="byelaptop4()">
+                <a-entity id="laptop" obj-model="obj:#laptopobj; mtl:#laptopmtl" rotation="0 180 0"></a-entity>
+                <a-plane id="lap-screen" material="src:#lap-screen" position="0 0.513 -4.322" rotation="-30 0 0" scale="1.75 0.95 1"></a-plane>
+            </a-entity>
+
+
+
+
+
+
+            <a-box material="src: #eightpic" onclick="bye8()" id="eight" position="34.570 6 14" rotation="0 -90 0"  scale="5 5 5" visible="false"></a-box>
+
+            <a-box material="src: #sevenpic" onclick="bye7()" id="seven" position="34.570 6 18" rotation="0 -90 0"  scale="5 5 5" visible="false"></a-box>
+
+            <a-box material="src: #threepic" onclick="bye3()" id="three" position="34.570 6 22" rotation="0 -90 0"  scale="5 5 5" visible="false"></a-box>
+
+            <a-box material="src: #ninepic" onclick="bye9()" id="nine" position="34.570 6 26" rotation="0 -90 0"  scale="5 5 5" visible="false"></a-box>
+
+
+            <a-text id="hint" value="What have we been working ON?" width="9.225" height="15" depth="2" position="3 5 -22.777" visible="false" align="center"></a-box>
+
+        </a-entity>
+
+
+        <a-entity id="end" visible="false">
+            <camera position="0 0 0"></camera>
+            <a-sky color="black"></a-sky>
+            <a-text value="Good Job! You made it out before Tina arrived!" color="white" rotation="0 -175.153 0" position="23.369 2.355 47.553" depth="1" height="20" width="40" align="center"></a-text>
+        </a-entity>
+
+    </a-scene>
+</body>
+
+</html>
